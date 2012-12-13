@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="net.refractions.udig.mapgraphic.mapgraphic">
+      <mapGraphic
+            class="eu.udig.tools.solarterminator.DayNightTerminatorGraphic"
+            icon="icons/terminator.png"
+            id="eu.udig.mapgraphic.solarterminator"
+            name="%terminator.layername">
+      </mapGraphic>
+   </extension>
+
+</plugin>

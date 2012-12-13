@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Day Night Terminator Plug-In
+Bundle-SymbolicName: eu.udig.tools.solarterminator;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ net.refractions.udig.mapgraphic;bundle-version="[1.2.0,1.4.0)"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
