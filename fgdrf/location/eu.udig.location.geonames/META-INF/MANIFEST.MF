@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Geonames Location service
+Bundle-SymbolicName: eu.udig.location.geonames;singleton:=true
+Bundle-Version: 1.2.1.qualifier
+Bundle-Activator: eu.udig.location.geonames.GeonamesLocationPlugin
+Require-Bundle: org.eclipse.core.runtime,
+ net.refractions.udig.libs;bundle-version="1.2.0",
+ eu.udig.location;bundle-version="1.2.1"
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: lib/geonames-1.0.4.jar,
+ lib/jdom-1.0.jar,
+ .

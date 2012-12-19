@@ -1,0 +1,160 @@
+package eu.udig.location.ui.internal;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import net.refractions.udig.core.AbstractUdigUIPlugin;
+
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
+import org.osgi.framework.BundleContext;
+import org.osgi.util.tracker.ServiceTracker;
+
+import eu.udig.location.Location;
+
+/**
+ * The main plugin class to be used in the desktop.
+ */
+public class LocationUIPlugin extends AbstractUdigUIPlugin {
+
+    public static String ID = "eu.udig.location.ui"; //$NON-NLS-1$
+    /** Icons path (value "icons/") */
+    public final static String ICONS_PATH = "icons/";//$NON-NLS-1$
+    
+    
+	//The shared instance.
+	private static LocationUIPlugin plugin;
+	private ServiceTracker serviceTracker;
+	
+	/**
+	 * The constructor.
+	 */
+	public LocationUIPlugin() {
+		plugin = this;
+	}
+
+    /**
+     * Set up shared images.
+     * 
+     * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+     * @param context
+     * @throws Exception
+     */
+    public void start( BundleContext context ) throws Exception {
+        super.start(context);
+        serviceTracker = new ServiceTracker(context, Location.class.getName(), null);
+    }
+    
+    public Collection<Location> getLocationServices() {
+    	List<Location> result = new ArrayList<Location>();
+    	serviceTracker.open();
+    	Object[] services = serviceTracker.getServices();
+    	if (services != null && services.length > 0) {
+	    	for (Object service : services) {
+	    		if (service instanceof Location) {
+	    			result.add((Location) service);
+	    		}
+	    	}
+    	}
+    	serviceTracker.close();
+    	
+    	return result;
+    }
+    /**
+     * Cleanup after shared images.
+     * 
+     * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+     * @param context
+     * @throws Exception
+     */
+    public void stop( BundleContext context ) throws Exception {
+        if (serviceTracker != null) {
+        	serviceTracker.close();
+        }
+        super.stop(context);
+       
+    }
+
+	/**
+	 * Returns the shared instance.
+	 */
+	public static LocationUIPlugin getDefault() {
+		return plugin;
+	}
+
+    /**
+     * Logs the Throwable in the plugin's log.
+     * <p>
+     * This will be a user visible ERROR iff:
+     * <ul>
+     * <li>t is an Exception (we are assuming it is human readable) or if a message is provided
+     * </ul>
+     * </p>
+     * 
+     * @param message
+     * @param t
+     */
+    public static void log( String message, Throwable t ) {
+        if (message == null)
+            message = ""; //$NON-NLS-1$
+        int status = t instanceof Exception || message != null ? IStatus.ERROR : IStatus.WARNING;
+        getDefault().getLog().log(new Status(status, ID, IStatus.OK, message, t));
+    }
+
+    /**
+     * Messages that only engage if getDefault().isDebugging()
+     * <p>
+     * It is much prefered to do this:
+     * 
+     * <pre><code>
+     * private static final String RENDERING = &quot;net.refractions.udig.project/render/trace&quot;;
+     * if (ProjectUIPlugin.getDefault().isDebugging() &amp;&amp; &quot;true&quot;.equalsIgnoreCase(RENDERING)) {
+     *     System.out.println(&quot;your message here&quot;);
+     * }
+     * </code></pre>
+     * 
+     * </p>
+     * 
+     * @param message
+     * @param e
+     */
+    public static void trace( String message, Throwable e ) {
+        if (getDefault().isDebugging()) {
+            if (message != null)
+                System.out.println(message);
+            if (e != null)
+                e.printStackTrace();
+        }
+    }
+    public static void trace( String message ) {
+        if (getDefault().isDebugging()) {
+            if (message != null)
+                System.out.println(message);
+        }
+    }
+    /**
+     * Performs the Platform.getDebugOption true check on the provided trace
+     * <p>
+     * Note: ProjectUIPlugin.getDefault().isDebugging() must also be on.
+     * <ul>
+     * <li>Trace.RENDER - trace rendering progress
+     * </ul>
+     * </p>
+     * 
+     * @param trace currently only RENDER is defined
+     * @return true if -debug is on for this plugin
+     */
+    public static boolean isDebugging( final String trace ) {
+        return getDefault().isDebugging()
+                && "true".equalsIgnoreCase(Platform.getDebugOption(trace)); //$NON-NLS-1$    
+    }
+
+	@Override
+	public IPath getIconPath() {
+		return new Path(ICONS_PATH);
+	}
+}
