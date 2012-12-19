@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/eu.udig.fgdrf.community.feature_1.0.0.201212192310.jar" id="eu.udig.fgdrf.community.feature" version="1.0.0.201212192310">
+      <category name="fgdrf"/>
+   </feature>
+   <category-def name="fgdrf" label="Frank Gasdorf"/>
+</site>
