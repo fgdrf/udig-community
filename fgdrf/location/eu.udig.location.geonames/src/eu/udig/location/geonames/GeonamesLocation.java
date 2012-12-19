@@ -21,10 +21,16 @@ import com.vividsolutions.jts.geom.Envelope;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 
-import eu.udig.location.Location;
+import eu.udig.location.GazetteerService;
 
-public class GeonamesLocation implements Location {
+public class GeonamesLocation implements GazetteerService {
 
+	private static SimpleFeatureType GEONAMES_SCHEMA = null;
+	
+	static {
+		GEONAMES_SCHEMA = createAddressType(Collections.singletonList(new String("name")));
+	}
+	
 	/**
 	 * TODO REVIEW : is there any convenience feature-type for geo-location objects with description attribute like name 
 	 * @param keys
@@ -61,15 +67,12 @@ public class GeonamesLocation implements Location {
 		
 			ToponymSearchResult searchResult = WebService.search(searchCriteria);
 			
-			SimpleFeatureType ADDRESS = null;
+			
 			for (Toponym toponym : searchResult.getToponyms()) {
-				if (ADDRESS == null) {
-					ADDRESS = createAddressType(Collections.singletonList(new String("name")));
-				}
 				Point point = geometryFactory.createPoint(new Coordinate(
 						toponym.getLongitude(), toponym.getLatitude()));
 
-				result.add(SimpleFeatureBuilder.build(ADDRESS, new Object[] {
+				result.add(SimpleFeatureBuilder.build(GEONAMES_SCHEMA, new Object[] {
 						toponym.getName(), point}, null));
 			}
 		} catch (Exception e) {
@@ -115,5 +118,10 @@ public class GeonamesLocation implements Location {
 	@Override
 	public String getServiceName() {
 		return WebService.getGeoNamesServer();
+	}
+
+	@Override
+	public SimpleFeatureType getSchema() {
+		return GEONAMES_SCHEMA;
 	}
 }

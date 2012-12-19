@@ -3,7 +3,7 @@ package eu.udig.location.geonames;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-import eu.udig.location.Location;
+import eu.udig.location.GazetteerService;
 
 public class GeonamesLocationPlugin implements BundleActivator {
 
@@ -23,7 +23,7 @@ public class GeonamesLocationPlugin implements BundleActivator {
 	public void start(BundleContext bundleContext) throws Exception {
 		GeonamesLocationPlugin.context = bundleContext;
 		
-		bundleContext.registerService(Location.class.getName(), new GeonamesLocation(), null);
+		bundleContext.registerService(GazetteerService.class.getName(), new GeonamesLocation(), null);
 	}
 
 	/*

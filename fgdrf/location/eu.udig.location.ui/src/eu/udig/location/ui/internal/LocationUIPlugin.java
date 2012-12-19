@@ -14,7 +14,7 @@ import org.eclipse.core.runtime.Status;
 import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
 
-import eu.udig.location.Location;
+import eu.udig.location.GazetteerService;
 
 /**
  * The main plugin class to be used in the desktop.
@@ -46,17 +46,17 @@ public class LocationUIPlugin extends AbstractUdigUIPlugin {
      */
     public void start( BundleContext context ) throws Exception {
         super.start(context);
-        serviceTracker = new ServiceTracker(context, Location.class.getName(), null);
+        serviceTracker = new ServiceTracker(context, GazetteerService.class.getName(), null);
     }
     
-    public Collection<Location> getLocationServices() {
-    	List<Location> result = new ArrayList<Location>();
+    public Collection<GazetteerService> getLocationServices() {
+    	List<GazetteerService> result = new ArrayList<GazetteerService>();
     	serviceTracker.open();
     	Object[] services = serviceTracker.getServices();
     	if (services != null && services.length > 0) {
 	    	for (Object service : services) {
-	    		if (service instanceof Location) {
-	    			result.add((Location) service);
+	    		if (service instanceof GazetteerService) {
+	    			result.add((GazetteerService) service);
 	    		}
 	    	}
     	}

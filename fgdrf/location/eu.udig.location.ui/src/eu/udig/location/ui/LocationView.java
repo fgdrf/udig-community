@@ -55,7 +55,7 @@ import com.vividsolutions.jts.geom.Envelope;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Point;
 
-import eu.udig.location.Location;
+import eu.udig.location.GazetteerService;
 import eu.udig.location.ui.internal.ImageConstants;
 import eu.udig.location.ui.internal.LocationUIPlugin;
 import eu.udig.location.ui.internal.Messages;
@@ -81,7 +81,7 @@ public class LocationView extends SearchPart implements ServiceListener {
 				.getBundleContext();
 		try {
 			bundleContext.addServiceListener(this, new String("(objectclass="
-					+ Location.class.getName() + ")"));
+					+ GazetteerService.class.getName() + ")"));
 		} catch (InvalidSyntaxException e) {
 			// should never happen
 			throw new RuntimeException(e);
@@ -142,13 +142,13 @@ public class LocationView extends SearchPart implements ServiceListener {
 		Query query = (Query) filter;
 		if (monitor == null)
 			monitor = new NullProgressMonitor();
-		Collection<Location> locationServices = LocationUIPlugin.getDefault()
+		Collection<GazetteerService> locationServices = LocationUIPlugin.getDefault()
 				.getLocationServices();
 
 		monitor.beginTask("search for " + query.text,
 				locationServices.size() * 10);
 		int count = 0;
-		for (Location location : locationServices) {
+		for (GazetteerService location : locationServices) {
 			try {
 				monitor.subTask(location.getServiceName() + " (" +location.getClass().getCanonicalName() + ")");
 				List<SimpleFeature> found = location.search(query.text,
@@ -355,7 +355,7 @@ public class LocationView extends SearchPart implements ServiceListener {
 
 				@Override
 				public void run() {
-					Collection<Location> locationServices = LocationUIPlugin
+					Collection<GazetteerService> locationServices = LocationUIPlugin
 							.getDefault().getLocationServices();
 					boolean empty = locationServices.isEmpty();
 					if (text != null && !text.isDisposed()) {
