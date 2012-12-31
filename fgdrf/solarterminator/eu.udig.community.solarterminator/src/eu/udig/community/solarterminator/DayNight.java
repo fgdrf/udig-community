@@ -1,4 +1,4 @@
-package eu.udig.tools.solarterminator;
+package eu.udig.community.solarterminator;
 
 import java.util.Calendar;
 

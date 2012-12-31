@@ -4,19 +4,10 @@
    <extension
          point="net.refractions.udig.mapgraphic.mapgraphic">
       <mapGraphic
-            class="eu.udig.tools.solarterminator.DayNightTerminatorGraphic"
+            class="eu.udig.community.solarterminator.DayNightTerminatorGraphic"
             icon="icons/terminator.png"
             id="eu.udig.mapgraphic.solarterminator"
             name="%terminator.layername">
       </mapGraphic>
    </extension>
-   <extension
-         point="org.eclipse.help.toc">
-      <toc
-            category="udig.community"
-            file="help/toc.xml"
-            primary="true">
-      </toc>
-   </extension>
-
 </plugin>

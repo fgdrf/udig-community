@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>eu.udig.community</groupId>
+        <artifactId>fgdrf-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>eu.udig.community</groupId>
+    <artifactId>solarterminator-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <prerequisites>
+        <maven>3.0</maven>
+    </prerequisites>
+
+    <modules>
+        <module>eu.udig.community.solarterminator</module>
+<!--
+        <module>eu.udig.community.solarterminator.nl1</module>
+-->
+        <module>eu.udig.community.solarterminator.feature</module>
+        <module>eu.udig.community.solarterminator.p2.updatesite</module>
+    </modules>
+</project>
